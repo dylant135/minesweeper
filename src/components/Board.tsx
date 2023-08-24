@@ -5,7 +5,7 @@ import Cell from "./Cell";
 
 export default function Board() {
     const {isReady} = useContext(gameContext)
-    const [boardData, setIsBoardData] = useState(generateBoard())
+    const [boardData, setBoardData] = useState(generateBoard())
 
 
     function generateBoard() {
@@ -34,7 +34,6 @@ export default function Board() {
     }
 
     function plantBombs(data:cellType[][]) {
-        console.log(data)
         let bombs = 10
         while(bombs > 0) {
             //Math.floor(Math.random() * (max - min + 1) + min)
@@ -105,6 +104,8 @@ export default function Board() {
             return (
                 <Cell
                     cellData={cell}
+                    setBoardData={setBoardData}
+                    boardData={boardData}
                 />
             )
         })
