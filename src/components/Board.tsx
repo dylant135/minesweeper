@@ -1,10 +1,8 @@
-import React, { useContext, useState } from "react";
-import { gameContext } from "../GameContext";
+import React, { useState } from "react";
 import { cellType } from "../types/cellType";
 import Cell from "./Cell";
 
 export default function Board() {
-    const {isReady} = useContext(gameContext)
     const [boardData, setBoardData] = useState(generateBoard())
 
 
@@ -51,7 +49,7 @@ export default function Board() {
             for(let j = 0; j < 8; j++) {
                 let num = 0
                 const arr = traverse(data, i, j)
-                arr.map(cell => {
+                arr.forEach(cell => {
                     if(cell.isMine) {
                         num++
                     }
