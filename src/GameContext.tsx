@@ -2,7 +2,9 @@ import React, { createContext, useState } from "react";
 
 type initType = {
     isReady: boolean,
-    setIsReady: React.Dispatch<React.SetStateAction<boolean>>
+    setIsReady: React.Dispatch<React.SetStateAction<boolean>>,
+    selectChoice: string,
+    setSelectChoice: React.Dispatch<React.SetStateAction<string>>
 }
 
 /*const init = {
@@ -18,10 +20,13 @@ type providerProps = {
 
 export default function GameContextProvider({children}: providerProps) {
     const [isReady, setIsReady] = useState(false)
+    const [selectChoice, setSelectChoice] = useState('select')
     return (
         <gameContext.Provider value={{
             isReady,
-            setIsReady
+            setIsReady,
+            selectChoice,
+            setSelectChoice
         }}>
             {children}
         </gameContext.Provider>
