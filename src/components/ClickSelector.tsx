@@ -11,8 +11,8 @@ export default function ClickSelector() {
 
     return (
         <div className="container center">
-            <button type="button" style={{backgroundColor: selectChoice === 'select' ? '#797cb2' : 'white'}} className="selectbtn" onClick={() => handleClick('select')}>Select</button>
-            <button type="button" style={{backgroundColor: selectChoice === 'flag' ? '#797cb2' : 'white'}} className="selectbtn" onClick={() => handleClick('flag')}>Flag</button>
+            <button type="button" style={{backgroundColor: selectChoice === 'select' ? 'crimson' : ''}} className="mainbtn" onClick={() => handleClick('select')}>Select</button>
+            <button type="button" style={{backgroundColor: selectChoice === 'flag' ? 'crimson' : ''}} className="mainbtn" onClick={() => handleClick('flag')}>Flag</button>
         </div>
     )
 }

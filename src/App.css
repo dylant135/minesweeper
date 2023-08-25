@@ -12,6 +12,10 @@
   margin: auto;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -41,10 +45,15 @@
   color: crimson;
 }
 
-.selectbtn {
-  width: 85px;
+.mainbtn {
+  width: 180px;
   height: 35px;
   font-size: 1.3em;
   text-align: center;
   margin: 5px;
+} 
+
+.mainbtn:hover {
+  cursor: pointer;
+  background-color: #df5b65;
 }

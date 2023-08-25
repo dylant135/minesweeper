@@ -1,10 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cellType } from "../types/cellType";
 import Cell from "./Cell";
 
-export default function Board() {
-    const [boardData, setBoardData] = useState(generateBoard())
+type propType = {
+    winner: () => void
+}
 
+export default function Board({winner}: propType) {
+
+    const [boardData, setBoardData] = useState(generateBoard())
+    const [canClick, setCanClick] = useState(true)
+
+    useEffect(() => {
+        const bombArr = boardData.map(row => {
+            return row.filter(cell => cell.isMine)
+        })
+        let bombsFound = 0
+        bombArr.forEach(row => {
+            row.forEach(cell => {
+                if(cell.isFlagged) {
+                    bombsFound++
+                }
+            })
+        })
+
+        if(bombsFound === 10) {
+            winner()
+        }
+
+    }, [boardData])
 
     function generateBoard() {
         const data = emptyArr()
@@ -97,6 +121,28 @@ export default function Board() {
         return arr
     }
 
+    function mineFound() {
+        setCanClick(false)
+        let newData = boardData.map(row => {
+            return row.map(cell => {
+                if(cell.isMine) {
+                    let theCell = cell
+                    theCell.isHidden = false
+                    theCell.isFlagged = false
+                    return theCell
+                } else {
+                    return cell
+                }
+            })
+        })
+        setBoardData(newData)
+    }
+
+    function newGame() {
+        setBoardData(generateBoard())
+        setCanClick(true)
+    }
+
     const displayBoard = boardData.map(row => {
         return row.map(cell => {
             return (
@@ -104,14 +150,18 @@ export default function Board() {
                     cellData={cell}
                     setBoardData={setBoardData}
                     boardData={boardData}
+                    mineFound={mineFound}
                 />
             )
         })
     })
 
     return (
-        <div className="board center">
-            {displayBoard}
+        <div className='center'>
+            {!canClick && <button type='button' className="mainbtn" onClick={newGame}>New Game</button>}
+            <div className={`board ${!canClick ? 'disabled' : ""}`}>
+                {displayBoard}
+            </div>
         </div>
     )
 }

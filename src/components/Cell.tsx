@@ -2,16 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { cellType } from "../types/cellType";
 import { gameContext } from "../GameContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFlag, faBomb } from '@fortawesome/free-solid-svg-icons'
+import { faBomb } from '@fortawesome/free-solid-svg-icons'
+import { faFlag } from '@fortawesome/free-regular-svg-icons'
 
 
 type propsType = {
     cellData: cellType,
     setBoardData: React.Dispatch<React.SetStateAction<cellType[][]>>,
-    boardData: cellType[][]
+    boardData: cellType[][],
+    mineFound: () => void
 }
 
-export default function Cell({cellData, setBoardData, boardData}: propsType) {
+export default function Cell({cellData, setBoardData, boardData, mineFound}: propsType) {
 
     const [locked, setLocked] = useState(false)
     const { selectChoice } = useContext(gameContext)
@@ -36,7 +38,11 @@ export default function Cell({cellData, setBoardData, boardData}: propsType) {
     }, [boardData, handleFlag])
 
     function handleClick() {
-        if(locked) return
+        if(locked) {
+            if(cellData.isHidden) {
+                setLocked(false)
+            } else return
+        }
         if(cellData.isHidden) {
             let newData = [...boardData]
             newData[cellData.x][cellData.y].isHidden = false
@@ -44,7 +50,7 @@ export default function Cell({cellData, setBoardData, boardData}: propsType) {
             if(selectChoice === 'select') {
                 setLocked(true)
                 if(cellData.isMine) {
-                    console.log('you lose')
+                    mineFound()
                 }
             }
         }
@@ -65,7 +71,7 @@ export default function Cell({cellData, setBoardData, boardData}: propsType) {
     }
 
     return (
-        <div className="cell" onClick={handleClick} onContextMenu={handleFlag}>
+        <div className="cell" onClick={handleClick} >
             {!cellData.isHidden && <p className="value">{cellData.isFlagged ? <FontAwesomeIcon icon={faFlag} className="icon" /> : cellData.isMine ? <FontAwesomeIcon icon={faBomb} className="icon" /> : cellData.num}</p>}
         </div>
     )
