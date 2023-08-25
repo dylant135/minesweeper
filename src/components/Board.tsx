@@ -25,9 +25,11 @@ export default function Board({winner}: propType) {
         })
 
         if(bombsFound === 10) {
+            setCanClick(false)
             winner()
         }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [boardData])
 
     function generateBoard() {

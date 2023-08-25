@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+h1 {
+  font-size: 2em;
+  background-color: #d11523;
+  padding: 7px;
+  margin-bottom: 25px;
+}
+
 .center {
   text-align: center;
 }
@@ -10,6 +17,26 @@
 .container {
   width: 80%;
   margin: auto;
+}
+
+.home {
+  background-color: #7c0c15;
+  height: 100vh;
+}
+
+.game {
+  background-color: #7c0c15;
+  min-height: 100vh;
+  padding-bottom: 25px;
+}
+
+.rules {
+  font-size: 1.3em;
+  color: white;
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  padding-top: 25px;
 }
 
 .disabled {
