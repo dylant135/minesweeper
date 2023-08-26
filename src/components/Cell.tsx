@@ -10,10 +10,12 @@ type propsType = {
     cellData: cellType,
     setBoardData: React.Dispatch<React.SetStateAction<cellType[][]>>,
     boardData: cellType[][],
-    mineFound: () => void
+    mineFound: () => void,
+    setFlagsLeft: React.Dispatch<React.SetStateAction<number>>,
+    flagsLeft: number
 }
 
-export default function Cell({cellData, setBoardData, boardData, mineFound}: propsType) {
+export default function Cell({cellData, setBoardData, boardData, mineFound, setFlagsLeft, flagsLeft}: propsType) {
 
     const [locked, setLocked] = useState(false)
     const { selectChoice } = useContext(gameContext)
@@ -62,11 +64,17 @@ export default function Cell({cellData, setBoardData, boardData, mineFound}: pro
     // eslint-disable-next-line react-hooks/exhaustive-deps
     function handleFlag() {
         let newData = [...boardData]
-        const theCell = boardData[cellData.x][cellData.y].isFlagged
-        if(theCell) {
+        const isFlag = boardData[cellData.x][cellData.y].isFlagged
+        if(isFlag) {
             newData[cellData.x][cellData.y].isHidden = true
-        }
-        boardData[cellData.x][cellData.y].isFlagged = !theCell
+            setFlagsLeft(prevState => prevState + 1)
+        } else if(flagsLeft === 0) {
+            newData[cellData.x][cellData.y].isHidden = true
+            setBoardData(newData)
+            return
+        } else setFlagsLeft(prevState => prevState - 1)
+
+        newData[cellData.x][cellData.y].isFlagged = !isFlag
         setBoardData(newData)
     }
 

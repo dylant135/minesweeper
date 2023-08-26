@@ -7,7 +7,6 @@ h1 {
   font-size: 2em;
   background-color: #d11523;
   padding: 7px;
-  margin-bottom: 25px;
 }
 
 .center {
@@ -22,12 +21,13 @@ h1 {
 .home {
   background-color: #7c0c15;
   height: 100vh;
+  padding-top: 25px;
 }
 
 .game {
   background-color: #7c0c15;
   min-height: 100vh;
-  padding-bottom: 25px;
+  padding: 25px 0;
 }
 
 .rules {
@@ -49,6 +49,7 @@ h1 {
   grid-template-rows: repeat(8, 1fr);
   width: fit-content;
   margin: auto;
+  padding-top: 10px;
 }
 
 .cell {

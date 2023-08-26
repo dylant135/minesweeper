@@ -10,7 +10,6 @@ export default function Home() {
 
     return (
         <div className="home">
-            <h1 className="center">MineSweeper</h1>
 
             <div className='container center'>
                 <button type='button' className='mainbtn' onClick={startGame}>Start Game</button>

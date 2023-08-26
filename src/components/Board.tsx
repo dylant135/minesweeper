@@ -10,6 +10,7 @@ export default function Board({winner}: propType) {
 
     const [boardData, setBoardData] = useState(generateBoard())
     const [canClick, setCanClick] = useState(true)
+    const [flagsLeft, setFlagsLeft] = useState(10)
 
     useEffect(() => {
         const bombArr = boardData.map(row => {
@@ -153,6 +154,8 @@ export default function Board({winner}: propType) {
                     setBoardData={setBoardData}
                     boardData={boardData}
                     mineFound={mineFound}
+                    setFlagsLeft={setFlagsLeft}
+                    flagsLeft={flagsLeft}
                 />
             )
         })
@@ -161,6 +164,7 @@ export default function Board({winner}: propType) {
     return (
         <div className='center'>
             {!canClick && <button type='button' className="mainbtn" onClick={newGame}>New Game</button>}
+            <span>Flags Remaining: {flagsLeft}</span>
             <div className={`board ${!canClick ? 'disabled' : ""}`}>
                 {displayBoard}
             </div>
