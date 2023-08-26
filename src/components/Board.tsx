@@ -144,6 +144,7 @@ export default function Board({winner}: propType) {
     function newGame() {
         setBoardData(generateBoard())
         setCanClick(true)
+        setFlagsLeft(10)
     }
 
     const displayBoard = boardData.map(row => {
@@ -164,7 +165,7 @@ export default function Board({winner}: propType) {
     return (
         <div className='center'>
             {!canClick && <button type='button' className="mainbtn" onClick={newGame}>New Game</button>}
-            <span>Flags Remaining: {flagsLeft}</span>
+            {canClick && <span className="flagsLeft">Flags Remaining: {flagsLeft}</span>}
             <div className={`board ${!canClick ? 'disabled' : ""}`}>
                 {displayBoard}
             </div>
